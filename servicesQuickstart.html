@@ -1,0 +1,116 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title> Unity Services Quickstart Guide</title>
+  <meta name="description" content="Unity Ads iOS Quick Start Guide">
+  <meta name="author" content="Fritz Huie - Unity Ads">
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+</head>
+<body>
+<section>
+<h1> Quick Start</h1>
+</section>
+<section id="create-game-project">
+<h2> Step 1: Create a Game Project ID</h1>
+<br>
+<a href="https://dashboard.unityads.unity3d.com/">Create a Unity Ads Game Project in the Unity Ads Dashboard</a></li>
+<br><br>
+
+</section>
+
+<section id="Integrate-unity-ads">
+<h2> Step 2: Integrate Unity Ads Into Your Game</h1>
+<p><i> For versions of Unity older than 5.2, click <a href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">here</a>.</i>
+
+  <p><h3> Enable Unity as in the Unity Services Panel.</h3>
+  <p> Open the Unity Services panel, and toggle Ads to enable the SDK in your project.
+  <p><img src="1.png">
+
+    <p> You can then add your 
+
+<p><h3> Once Ads in enabled, use the following code to call an ad from any scene:</h3></p>
+
+<pre><code class="C-sharp">
+using UnityEngine;
+using UnityEngine.Advertisements;
+
+public class UnityAdsExample : MonoBehaviour
+{
+  public void ShowAd()
+  {
+    if (Advertisement.IsReady())
+    {
+      Advertisement.Show();
+    }
+  }
+}
+<br>
+</code></pre>
+
+<p> Unity Ads will automatically initialize in your game, at which point you can call <b>public void ShowAd()</b> to display an ad.
+
+<p> Additional examples and troubleshooting can be found here. (Add links to knowledge base)
+</section>
+
+<section id="incentivize">
+<h1> 3: Incentivize With Placements</h1>
+
+<p> Only <b>completed views</b> are monetized, so it's important to inventivize users to watch ads to maximize revenue.
+  <p> Successful implementations generally include one or more of the following:
+    <ul>
+      <li> In-game currency reward
+      <li> Extra lives at the start of the game
+      <li> Point boosts for the next round
+      <li> Access to bonus content
+    </ul>
+
+  <p> You can detect when the player has watched an ad to completion using the <b>HandleShowResult</b> callback.
+  <p> Use the following code to detect when players have finished watching an ad:</p>
+
+<pre><code class="C-sharp">
+using UnityEngine;
+using UnityEngine.Advertisements;
+
+public class UnityAdsExample : MonoBehaviour
+{
+  public void ShowRewardedAd()
+  {
+    if (Advertisement.IsReady("rewardedVideo"))
+    {
+      var options = new ShowOptions { resultCallback = HandleShowResult };
+      Advertisement.Show("rewardedVideo", options);
+    }
+  }
+
+  private void HandleShowResult(ShowResult result)
+  {
+    switch (result)
+    {
+      case ShowResult.Finished:
+        Debug.Log("The ad was successfully shown.");
+        //
+        // YOUR CODE TO REWARD THE GAMER
+        // Give coins etc.
+        break;
+      case ShowResult.Skipped:
+        Debug.Log("The ad was skipped before reaching the end.");
+        break;
+      case ShowResult.Failed:
+        Debug.LogError("The ad failed to be shown.");
+        break;
+    }
+  }
+}
+</code></pre>
+  <p> In this example, HandleShowResult will be called every time a video with the <b>"rewardedVideo"</b> placement finishes playing.
+
+<p> Additional information on placements can be found in our <a href="http://unityads.unity3d.com/help/monetization/placements"> Knowledge base </a></p>
+
+</section>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <script src="js/scripts.js"></script>
+</body>
+</html>
