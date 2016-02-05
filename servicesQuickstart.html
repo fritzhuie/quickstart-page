@@ -29,36 +29,36 @@
   <p><h5> Once Ads is enabled, use the following code to call an ad from any scene</p>
 
   <pre><code class="C-sharp">
-  using UnityEngine;
-  using UnityEngine.Advertisements;
+using UnityEngine;
+using UnityEngine.Advertisements;
 
-  public class UnityAdsExample : MonoBehaviour
+public class UnityAdsExample : MonoBehaviour
+{
+  public void ShowRewardedAd()
   {
-    public void ShowRewardedAd()
+    if (Advertisement.IsReady("rewardedVideo"))
     {
-      if (Advertisement.IsReady("rewardedVideo"))
-      {
-        var options = new ShowOptions { resultCallback = HandleShowResult };
-        Advertisement.Show("rewardedVideo", options); // Show an ad with the "rewardedVideo" placement
-      }
-    }
-
-    private void HandleShowResult(ShowResult result) // Called when the video ad ends
-    {
-      if (result != ShowResult.Skipped)
-      {
-        // Player has watched an ad - Provide the reward
-        // Give coins, lives, etc...
-      }
+      var options = new ShowOptions { resultCallback = HandleShowResult };
+      Advertisement.Show("rewardedVideo", options); // Show an ad with the "rewardedVideo" placement
     }
   }
-  </code></pre>
 
-<p> <h5>That's All!</p>
-<p>Your game should now display test ads when you call <code>ShowRewardedAd()</code>. Don't forget to disable Test Mode when your game goes live!</p>
+  private void HandleShowResult(ShowResult result) // Called when the video ad ends
+  {
+    if (result != ShowResult.Skipped)
+    {
+      // Player has watched an ad - Provide the reward
+      // Give coins, lives, etc...
+    }
+  }
+}
+ </code></pre>
+
+<p> <h5>Done!</p>
+<p>Your game should now display test ads when you call <code>ShowRewardedAd()</code> - Don't forget to disable Test Mode when your game goes live.</p>
 
 <p> Additional examples and troubleshooting can be found <a href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-services-window">here</a>.
-<p> For additional questions, check out the <a href="">forum</a> or contact our <a href="mailto:unityads-support@unity3d.com">Unity Ads Support</a>.</p>
+<p> For additional questions, check out the <a href="">forum</a> or contact <a href="mailto:unityads-support@unity3d.com">Unity Ads Support</a>.</p>
 
 </section>
 
@@ -85,7 +85,9 @@
     <li> Point boosts for the next round
   </ul>
 
- <p> In the code example above, you'll see a method (<code>HandleShowResult()</code>) that gets called when an ad finishes playing.</p>
+<p>Check out our guides and documntation for more information</p>
+
+ <p> In the code example above, you'll see a method, <code>HandleShowResult()</code>, that is called when the video ends.</p>
 
  <pre><code>
 ...
@@ -99,6 +101,7 @@ private void HandleShowResult(ShowResult result) // Called when the video ad end
  }
 }
  </code></pre>
+ <p> Use this method to reward players for watching ads.
   <p> Additional information on placements can be found in our <a href="http://unityads.unity3d.com/help/monetization/placements"> Knowledge base </a></p>
 
 </section>
