@@ -10,27 +10,22 @@
 </head>
 <body>
 <section>
-<h1> Quick Start</h1>
+  <h1> Quick Start for Unity 5.2+</h1>
+  <p><h5>Click here for <a href="">Native iOS</a> or <a href="">Native Android</a></p>
 </section>
 <section id="create-game-project">
-<h2> Step 1: Create a Game Project ID</h1>
-<br>
-<a href="https://dashboard.unityads.unity3d.com/">Create a Unity Ads Game Project in the Unity Ads Dashboard</a></li>
-<br><br>
-
+  <h2> Step 1: Log into Unity with your UDN Account</h2>
+  <p>Your UDN Account will be used to manage your Unity Ads profile.</p>
+  <p>Other members of your Organization will have access to your Ads account as well.</p>
 </section>
 
 <section id="Integrate-unity-ads">
-<h2> Step 2: Integrate Unity Ads Into Your Game</h1>
-<p><i> For versions of Unity older than 5.2, click <a href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">here</a>.</i>
-
-  <p><h3> Enable Unity as in the Unity Services Panel.</h3>
-  <p> Open the Unity Services panel, and toggle Ads to enable the SDK in your project.
-  <p><img src="1.png">
-
-    <p> You can then add your 
-
-<p><h3> Once Ads in enabled, use the following code to call an ad from any scene:</h3></p>
+  <h2> Step 2: Integrate Unity Ads Into Your Game</h2>
+  <p><i> For versions of Unity <b>older</b> than 5.2, click <a href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">here</a>.</i>
+  <p><h5> Enable Unity Ads in the Unity Services Panel (Window -> Services)</p>
+  <p> To open the Ads Services panel, click "Ads", and enable the SDK in your project.</p>
+  <p><img src="services-window.png"></p>
+  <p><h5> Once Ads in enabled, use the following code to call an ad from a scene:</p>
 
 <pre><code class="C-sharp">
 using UnityEngine;
@@ -51,22 +46,21 @@ public class UnityAdsExample : MonoBehaviour
 
 <p> Unity Ads will automatically initialize in your game, at which point you can call <b>public void ShowAd()</b> to display an ad.
 
-<p> Additional examples and troubleshooting can be found here. (Add links to knowledge base)
+<p> Additional examples and troubleshooting can be found <a href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-services-window">here</a>.
 </section>
 
 <section id="incentivize">
-<h1> 3: Incentivize With Placements</h1>
+  <h2> 3: Incentivize With Placements</h2>
 
-<p> Only <b>completed views</b> are monetized, so it's important to inventivize users to watch ads to maximize revenue.
-  <p> Successful implementations generally include one or more of the following:
-    <ul>
-      <li> In-game currency reward
-      <li> Extra lives at the start of the game
-      <li> Point boosts for the next round
-      <li> Access to bonus content
-    </ul>
-
-  <p> You can detect when the player has watched an ad to completion using the <b>HandleShowResult</b> callback.
+  <p> Only <b>completed views</b> are monetized, so it's important to inventivize users to watch ads to maximize revenue.</p>
+  <p> Successful implementations generally include one or more of the following:</p>
+  <ul>
+    <li> In-game currency reward
+    <li> Extra lives at the start of the game
+    <li> Point boosts for the next round
+    <li> Access to bonus content
+  </ul>
+  <p> You can detect when the player has watched an ad to completion using the <b>HandleShowResult</b> callback.</p>
   <p> Use the following code to detect when players have finished watching an ad:</p>
 
 <pre><code class="C-sharp">
@@ -104,13 +98,11 @@ public class UnityAdsExample : MonoBehaviour
   }
 }
 </code></pre>
-  <p> In this example, HandleShowResult will be called every time a video with the <b>"rewardedVideo"</b> placement finishes playing.
 
-<p> Additional information on placements can be found in our <a href="http://unityads.unity3d.com/help/monetization/placements"> Knowledge base </a></p>
+  <p> In this example, HandleShowResult will be called every time a video with the <b>"rewardedVideo"</b> placement finishes playing.</p>
+  <p> Additional information on placements can be found in our <a href="http://unityads.unity3d.com/help/monetization/placements"> Knowledge base </a></p>
 
 </section>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-  <script src="js/scripts.js"></script>
 </body>
 </html>
