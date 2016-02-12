@@ -10,25 +10,73 @@
 </head>
 <body>
 <section>
-  <h1> Quick Start for Unity 5.2+</h1>
-  <h3>Other Guides: <a target="_blank" href="">Native iOS</a> | <a target="_blank" href="">Native Android</a> | <a target="_blank" href="">Unity 4.6 to 5.1</a></h5>
+  <h1> Quick Start using Unity Services</h1>
+  <h3>Other Guides: <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-ios">Native iOS</a> | <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-android">Native Android</a> | <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">Unity Asset Package</a></h5>
 </section>
 <section id="create-game-project">
-  <h2> Step 1 - Open your Unity Project</h2>
-  <p>Your UDN Account is used to manage Unity Ads profiles.</p>
-  <p>Other members of your Organization have access to your Ads account as well.</p>
+  <h2>Enable Ads in Unity</h2>
+  <h3> Open, or create a new Unity project</h3>
+  <p> ... </p>
+  <h3> Enable Ads in the Unity Services Panel</h3>
+  <p> Select <b>Window</b> -> <b>Unity Services</b> </p>
+  <p> Select an Organization from the drop down menu </p>
+  <p> Click "Create" </p>
+
+  <p><img src="servicesorg.png"></p>
+
+  <p> Click "Ads", and enable the SDK in your project.</p>
+
+  <p><img src="services.png"></p>
+
 </section>
 
+<h3><a target="_blank" href="https://github.com/Applifier/unity-ads-helper#creating-a-unity-ui-button">Click here for a detailed guide on how to create a button that plays ads!</a><h3>
+
 <section id="Integrate-unity-ads">
-  <h2> Step 2 - Integrate Unity Ads Into Your Game</h2>
-  <p><i> For versions of Unity <b>older</b> than 5.2, click <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">here</a>.</i>
-  <h3> Enable Unity Ads in the Unity Services Panel (Window -> Services)</h5>
-  <p> Click "Ads", and enable the SDK in your project.</p>
-  <p><img src="services.png"></p>
-  <h3> Once Ads is enabled, use the following example to call an ad from any scene</h5>
+  <h2> Create a UI Button to Show Ads</h2>
+
+  <p><img src="button-ui-banner.png"></p>
+
+  <p>1: Start by creating a new Unity UI Button in your scene. This will also add a UI Canvas and EventSystem to your scene if they don't already exist.</p>
+  <ul>
+    <li>Select GameObject > UI > Button from the Unity Editor menu.</li>
+    <li>Press the T key to switch to using the Rect Transform Tool.</li>
+    <li>Select and drag the UI Button to the center of the UI Canvas.</li>
+  </ul>
+  <p>2: Customize the UI Button for use with this example.</p>
+  <ul>
+    <li>Rename the new UI Button to ShowAdButton.</li>
+    <li>Expand ShowAdButton in the Hierarchy to view child objects.</li>
+    <li>Locate and select the GameObject named Text.</li>
+    <li>Rename the Text GameObject to ReadyText.</li>
+    <li>Enter "Show Default Ad" into the Text field of the Text component.</li>
+  </ul>
+
+  <p><img src="example-scene.png"></p>
+
+  <p>3: Create a non-interactable version of the button text.</p>
+  <ul>
+    <li>Locate and select the GameObject named ReadyText.</li>
+    <li>Select Edit > Duplicate to create a duplicate GameObject.</li>
+    <li>Rename the duplicate GameObject to WaitingText.</li>
+    <li>Enter "Waiting..." into the Text field of the the Text component.</li></li>
+    <li>Disable the Text component of the GameObject for the time being.</li>
+  </ul>
+
+  <p><img src="example-inspector.png"></p>
+
+  <p>4: Configure the UI Canvas to scale with screen size.</p>
+  <ul>
+    <li>Locate and select the GameObject named Canvas.</li>
+    <li>Set the UI Scale Mode of the Canvas Scaler to Scale With Screen Size.</li>
+    <li>Set the Match value to 0.5 between Width and Height.</li>
+  </ul>
+
+  <p><img src="example-canvas-scaler.png"></p>
+ <p><i>Note: Be sure to check out the Unity UI system Tutorials and Docs to learn more.</i>
 
   <pre><code class="C-sharp">
-using UnityEngine;
+
 using UnityEngine.Advertisements;
 
 public class UnityAdsExample : MonoBehaviour
@@ -66,16 +114,14 @@ public class UnityAdsExample : MonoBehaviour
    <li> Point boosts for the next round</li>
  </ul>
 
-<p>Check out our <a target="_blank" href="http://blogs.unity3d.com/2015/04/15/a-designers-guide-to-using-video-ads">designer guide</a> for examples and more information on incentivizing your video ads.</p>
-
 </section>
 
 <section id="dashboard">
   <h2> Step 3 - Manage your profile in the <a target="_blank" href="https://dashboard.unityads.unity3d.com/">Dashboard</a></h2>
 
-  <h3> Log into the <a target="_blank" href="https://dashboard.unityads.unity3d.com/">Dashboard</a> with your UDN Account, and find your game </h5>
+  <h3> Log into the <a target="_blank" href="https://dashboard.unityads.unity3d.com/">Dashboard</a> with your UDN Account</h5>
   <p>From here, you can modify placements and other game-specific settings.<p>
-  <p><img src="dashboard.png"></p>
+  <p><img src="dashboard2.png"></p>
 
 <p> Additional information on placements can be found in our <a target="_blank" href="http://unityads.unity3d.com/help/monetization/placements"> Documentation</a>.</p>
 <p> For additional questions, check out the <a target="_blank" href="http://forum.unity3d.com/forums/unity-ads.67">forum</a> or contact <a target="_blank" href="mailto:unityads-support@unity3d.com">Unity Ads Support</a>.</p>
