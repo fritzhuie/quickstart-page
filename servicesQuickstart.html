@@ -11,117 +11,138 @@
 <body>
 <section>
   <h1> Quick Start using Unity Services</h1>
-  <h3>Other Guides: <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-ios">Native iOS</a> | <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-android">Native Android</a> | <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">Unity Asset Package</a></h5>
+  <p> This guide provides a quick integration of Unity Ads into a Unity 5.3 game. The source code referenced here is available on our public GitHub repository.</p>
+  <p>Other Guides: <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-ios">Native iOS</a> | <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-android">Native Android</a> | <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-asset-package">Unity Asset Package</a></p>
 </section>
 <section id="create-game-project">
-  <h2>Enable Ads in Unity</h2>
-  <h3> Open, or create a new Unity project</h3>
-  <p> ... </p>
-  <h3> Enable Ads in the Unity Services Panel</h3>
-  <p> Select <b>Window</b> -> <b>Unity Services</b> </p>
-  <p> Select an Organization from the drop down menu </p>
-  <p> Click "Create" </p>
 
-  <p><img src="servicesorg.png"></p>
+  <h2>Enable Ads in Unity</h2>
+  <h3> First, open your game project, or create a new Unity project</h3>
+  <ul>
+    <li> Select Edit > Build Settings and set the platform to iOS or Android </li>
+  </ul>
+  <p><img src="resources/build-settings.png"></p>
+  <h3> Enable Ads in the Unity Services Panel</h3>
+  <ul>
+    <li> Select <b>Window -> Unity Services</b> </li>
+    <li> Select an Organization from the drop down menu </li>
+    <li> Click "Create" </li>
+  </ul>
+
+  <p><img src="resources/servicesorg.png"></p>
 
   <p> Click "Ads", and enable the SDK in your project.</p>
 
-  <p><img src="services.png"></p>
+  <p><img src="resources/services.png"></p>
 
-</section>
+  </section>
 
-<h3><a target="_blank" href="https://github.com/Applifier/unity-ads-helper#creating-a-unity-ui-button">Click here for a detailed guide on how to create a button that plays ads!</a><h3>
-
-<section id="Integrate-unity-ads">
-  <h2> Create a UI Button to Show Ads</h2>
-
-  <p><img src="button-ui-banner.png"></p>
-
-  <p>1: Start by creating a new Unity UI Button in your scene. This will also add a UI Canvas and EventSystem to your scene if they don't already exist.</p>
+  <h2>Add the code</h2>
   <ul>
-    <li>Select GameObject > UI > Button from the Unity Editor menu.</li>
-    <li>Press the T key to switch to using the Rect Transform Tool.</li>
-    <li>Select and drag the UI Button to the center of the UI Canvas.</li>
-  </ul>
-  <p>2: Customize the UI Button for use with this example.</p>
-  <ul>
-    <li>Rename the new UI Button to ShowAdButton.</li>
-    <li>Expand ShowAdButton in the Hierarchy to view child objects.</li>
-    <li>Locate and select the GameObject named Text.</li>
-    <li>Rename the Text GameObject to ReadyText.</li>
-    <li>Enter "Show Default Ad" into the Text field of the Text component.</li>
-  </ul>
+  <li>First, declare the Unity Ads namespace in the header of your script<br><br>
+  <b><code class="C-sharp">using UnityEngine.Advertisements;</code></b>
+  </li>
 
-  <p><img src="example-scene.png"></p>
+  <br>
 
-  <p>3: Create a non-interactable version of the button text.</p>
-  <ul>
-    <li>Locate and select the GameObject named ReadyText.</li>
-    <li>Select Edit > Duplicate to create a duplicate GameObject.</li>
-    <li>Rename the duplicate GameObject to WaitingText.</li>
-    <li>Enter "Waiting..." into the Text field of the the Text component.</li></li>
-    <li>Disable the Text component of the GameObject for the time being.</li>
-  </ul>
-
-  <p><img src="example-inspector.png"></p>
-
-  <p>4: Configure the UI Canvas to scale with screen size.</p>
-  <ul>
-    <li>Locate and select the GameObject named Canvas.</li>
-    <li>Set the UI Scale Mode of the Canvas Scaler to Scale With Screen Size.</li>
-    <li>Set the Match value to 0.5 between Width and Height.</li>
-  </ul>
-
-  <p><img src="example-canvas-scaler.png"></p>
- <p><i>Note: Be sure to check out the Unity UI system Tutorials and Docs to learn more.</i>
+  <li> Then, you can display an ad by calling the following method<br><br>
+  <b><code class="C-sharp">Advertisement.Show()</code></b>
+  </li>
+</ul>
+  <h3>Example Code</h3>
+  <p>Step 1: Select Game Object > UI > Button to add a Button in your scene</p>
+  <p>Step 2: Add the following script to the button</p>
 
   <pre><code class="C-sharp">
-
-using UnityEngine.Advertisements;
-
-public class UnityAdsExample : MonoBehaviour
-{
-  public void ShowRewardedAd()
-  {
-    if (Advertisement.IsReady("rewardedVideo"))
+    using UnityEngine;
+    using UnityEngine.UI;
+    using UnityEngine.Advertisements;
+    using System.Collections;
+    ​
+    [RequireComponent(typeof(Button))]
+    public class UnityAdsButton : MonoBehaviour
     {
-      var options = new ShowOptions { resultCallback = HandleShowResult };
-      Advertisement.Show("rewardedVideo", options); // Show an ad with the "rewardedVideo" placement
+    	public string zoneId;
+    ​
+    	private Button _button;
+    ​
+    	void Start ()
+    	{
+    		_button = GetComponent&lt;Button&gt;();
+    ​
+    		if (_button) _button.onClick.AddListener (delegate() { ShowAdPlacement(); });
+    	}
+    ​
+    	void Update ()
+    	{
+    		if (_button) {
+    			if (string.IsNullOrEmpty (zoneId)) zoneId = null;
+    			_button.interactable = Advertisement.IsReady (zoneId);
+    		}
+    	}
+    ​
+    	void ShowAdPlacement ()
+    	{
+    		if (string.IsNullOrEmpty (zoneId)) zoneId = null;
+    ​
+    		ShowOptions options = new ShowOptions();
+    		options.resultCallback = HandleShowResult;
+    ​
+    		Advertisement.Show (zoneId, options);
+    	}
+    ​
+    	private void HandleShowResult (ShowResult result)
+    	{
+    		switch (result)
+    		{
+    		case ShowResult.Finished:
+    			Debug.Log ("Video completed. Offer a reward to the player.");
+    			break;
+    		case ShowResult.Skipped:
+    			Debug.LogWarning ("Video was skipped.");
+    			break;
+    		case ShowResult.Failed:
+    			Debug.LogError ("Video failed to show.");
+    			break;
+    		}
+    	}
     }
-  }
+  </code></pre>
 
-  private void HandleShowResult(ShowResult result) // Called when the video ad ends
-  {
-    if (result != ShowResult.Skipped)
-    {
-      // Player has watched an ad - Provide the reward
-      // Give coins, lives, etc...
-    }
-  }
-}
- </code></pre>
 
-<p>Your game should now display test ads when you call <code>ShowRewardedAd()</code> - <i>Don't forget to disable Test Mode when your game goes live!</i></p>
-<p> Additional examples and troubleshooting can be found <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-services-window">in our monetization documentation</a>.</p>
-<p> For additional questions, check out the <a target="_blank" href="http://forum.unity3d.com/forums/unity-ads.67">forum</a> or contact <a target="_blank" href="mailto:unityads-support@unity3d.com">Unity Ads Support</a>.</p>
- <h3>Incentivize players to watch ads</h3>
 
- <p> It's important to inventivize users to watch ads. Incentivizing ads improves user engagement, and substantially increases revenue.</p>
- <p> A good implementations genernally include one or more of the following: </p>
+  <p> Additional examples and troubleshooting can be found <a target="_blank" href="http://unityads.unity3d.com/help/monetization/integration-guide-unity#using-the-services-window">in our monetization documentation</a>.</p>
+  <p> For additional questions, check out the <a target="_blank" href="http://forum.unity3d.com/forums/unity-ads.67">forum</a> or contact <a target="_blank" href="mailto:unityads-support@unity3d.com">Unity Ads Support</a>.</p>
+
+ <h2>How to reward players</h2>
+
+<p>It's a good idea to reward players for watching ads - It adds user engagement (which results in increased revenue)</p>
+ <p> A rewarded ads implelemtation genernally includes one or more of the following: </p>
  <ul>
    <li> In-game currency reward</li>
    <li> Extra lives at the start of the game</li>
    <li> Point boosts for the next round</li>
  </ul>
 
+<p>You can reward players for completing a video ad when the result of showing an ad is <code>ShowResult.Finished</code></p>
+
+<pre><code>
+  private void HandleShowResult (ShowResult result)
+    if (result == ShowResult.Finished)
+    {
+      //Add code to reward your player here!
+      //Give coins, etc
+    }
+</pre></code>
+
 </section>
 
 <section id="dashboard">
-  <h2> Step 3 - Manage your profile in the <a target="_blank" href="https://dashboard.unityads.unity3d.com/">Dashboard</a></h2>
+  <h2> Manage your profile in the <a target="_blank" href="https://dashboard.unityads.unity3d.com/">Dashboard</a></h2>
 
   <h3> Log into the <a target="_blank" href="https://dashboard.unityads.unity3d.com/">Dashboard</a> with your UDN Account</h5>
   <p>From here, you can modify placements and other game-specific settings.<p>
-  <p><img src="dashboard2.png"></p>
+  <p><img src="resources/dashboard2.png"></p>
 
 <p> Additional information on placements can be found in our <a target="_blank" href="http://unityads.unity3d.com/help/monetization/placements"> Documentation</a>.</p>
 <p> For additional questions, check out the <a target="_blank" href="http://forum.unity3d.com/forums/unity-ads.67">forum</a> or contact <a target="_blank" href="mailto:unityads-support@unity3d.com">Unity Ads Support</a>.</p>
