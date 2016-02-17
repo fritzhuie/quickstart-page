@@ -1,2 +1,2 @@
-# AdsQuickStart
-Series of QuickStart guides for Unity Ads
+# Ads Quick Start Guide HTML page
+Includes images
